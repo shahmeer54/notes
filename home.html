@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotesHub</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0d1117;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: #111827;
+      border-bottom: 1px solid #222;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      color: #58a6ff;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: #ccc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #58a6ff;
+    }
+
+    .search-box input {
+      width: 250px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      background: #1f2937;
+      color: white;
+      outline: none;
+    }
+
+    .hero {
+      padding: 100px 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #111827, #0d1117);
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .hero button {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 12px;
+      background: #238636;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero button:hover {
+      background: #2ea043;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 38px;
+      margin-top: 60px;
+      margin-bottom: 30px;
+      color: #58a6ff;
+    }
+
+    .boards {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .board-card {
+      background: #161b22;
+      width: 300px;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid #222;
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .board-card:hover {
+      transform: translateY(-5px);
+      border-color: #58a6ff;
+    }
+
+    .board-card h2 {
+      margin-bottom: 15px;
+      color: #58a6ff;
+    }
+
+    .subjects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 40px;
+    }
+
+    .card {
+      background: #161b22;
+      padding: 25px;
+      border-radius: 18px;
+      border: 1px solid #222;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #58a6ff;
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+      color: #58a6ff;
+    }
+
+    .card p {
+      color: #bbb;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      background: #238636;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #2ea043;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .feature-box {
+      background: #111827;
+      padding: 25px;
+      border-radius: 18px;
+      border: 1px solid #222;
+      text-align: center;
+    }
+
+    .feature-box h3 {
+      margin-bottom: 10px;
+      color: #58a6ff;
+    }
+
+    .feature-box p {
+      color: #bbb;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+    }
+
+    .stat {
+      background: #161b22;
+      padding: 25px 40px;
+      border-radius: 18px;
+      text-align: center;
+      border: 1px solid #222;
+    }
+
+    .stat h1 {
+      color: #58a6ff;
+      margin-bottom: 8px;
+    }
+
+    .upload-box {
+      width: 90%;
+      max-width: 700px;
+      margin: 50px auto;
+      background: #161b22;
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid #222;
+      text-align: center;
+    }
+
+    .upload-box input {
+      margin-top: 20px;
+      color: white;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #222;
+      color: #777;
+    }
+
+    @media(max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .search-box input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">NotesHub</div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Notes</a>
+      <a href="#">Boards</a>
+      <a href="#">Upload</a>
+    </nav>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search Notes...">
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Punjab & Federal Notes</h1>
+    <p>Download 9th Class Notes, MCQs, Past Papers & PDFs</p>
+    <button>Explore Notes</button>
+  </section>
+
+  <h1 class="section-title">Choose Board</h1>
+
+  <section class="boards">
+    <div class="board-card">
+      <h2>Punjab Board</h2>
+      <p>9th class chapter-wise notes and solved exercises.</p>
+      <a href="#" class="btn">Open</a>
+    </div>
+
+    <div class="board-card">
+      <h2>Federal Board</h2>
+      <p>FBISE notes, MCQs and important questions PDFs.</p>
+      <a href="#" class="btn">Open</a>
+    </div>
+  </section>
+
+  <h1 class="section-title">Popular Subjects</h1>
+
+  <section class="subjects">
+
+    <div class="card">
+      <h2>Physics</h2>
+      <p>Numericals, theory notes and solved exercises.</p>
+      <a href="#" class="btn">Download PDF</a>
+    </div>
+
+    <div class="card">
+      <h2>Mathematics</h2>
+      <p>Important formulas and chapter-wise solutions.</p>
+      <a href="#" class="btn">Download PDF</a>
+    </div>
+
+    <div class="card">
+      <h2>Chemistry</h2>
+      <p>MCQs, short questions and chapter notes.</p>
+      <a href="#" class="btn">Download PDF</a>
+    </div>
+
+    <div class="card">
+      <h2>Biology</h2>
+      <p>Diagrams, long questions and revision notes.</p>
+      <a href="https://drive.google.com/file/d/14hi-bd0RgQGC5WEXR5dQm4whByrTYtWo/view?usp=drive_link" class="btn">Download PDF</a>
+    </div>
+
+    <div class="card">
+      <h2>Computer</h2>
+      <p>Programming basics and computer concepts.</p>
+      <a href="#" class="btn">Download PDF</a>
+    </div>
+
+    <div class="card">
+      <h2>English</h2>
+      <p>Grammar, essays and chapter summaries.</p>
+      <a href="#" class="btn">Download PDF</a>
+    </div>
+
+  </section>
+
+  <h1 class="section-title">Website Features</h1>
+
+  <section class="features">
+
+    <div class="feature-box">
+      <h3>Fast Downloads</h3>
+      <p>Quick PDF downloading system.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Dark UI</h3>
+      <p>Modern full dark design for students.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Chapter-wise PDFs</h3>
+      <p>Easy organized chapter sections.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Mobile Friendly</h3>
+      <p>Works smoothly on phones and laptops.</p>
+    </div>
+
+  </section>
+
+  <h1 class="section-title">Website Stats</h1>
+
+  <section class="stats">
+
+    <div class="stat">
+      <h1>500+</h1>
+      <p>PDF Notes</p>
+    </div>
+
+    <div class="stat">
+      <h1>20K+</h1>
+      <p>Downloads</p>
+    </div>
+
+    <div class="stat">
+      <h1>2 Boards</h1>
+      <p>Punjab & Federal</p>
+    </div>
+
+  </section>
+
+  <h1 class="section-title">Upload Notes</h1>
+
+  <div class="upload-box">
+    <h2>Upload PDF Notes</h2>
+    <p style="margin-top:10px;color:#aaa;">Teachers & students can upload notes here.</p>
+    <input type="file">
+  </div>
+
+  <footer>
+    © 2026 NotesHub | Made By Shahmeer 💙
+  </footer>
+
+</body>
+</html>
+
